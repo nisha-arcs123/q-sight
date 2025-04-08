@@ -885,53 +885,31 @@
     <script>
       gsap.registerPlugin(ScrollTrigger);
 
+      // Select all check sections
       const sections = document.querySelectorAll(".checks");
-      const totalSections = sections.length;
-
+      const totalSections = sections.length; // Get total number of sections
+      
       sections.forEach((section, index) => {
-        // Set initial position to the right
-        gsap.set(section, { x: 1200 });
-
-        // Create the animation (from right to original position)
-        const animation = gsap.to(section, {
-          x: 0,
-          ease: "power2.out",
-          paused: true
-        });
-
-        ScrollTrigger.create({
-          trigger: section,
-          start: "top 80%",
-          end: "bottom 60%",
-          id: `section-${index}`,
-          onEnter: () => {
-            gsap.delayedCall((totalSections - index) * 0.3, () => {
-              animation.play();
-            });
+        gsap.fromTo(
+          section,
+          {
+            x: 0, // Start at the initial position
           },
-          onLeave: () => {
-            // Animate out to the right when scrolling past
-            gsap.to(section, {
-              duration: 1,
-              ease: "power2.in",
-              delay: index * 0.7
-            });
-          },
-          onEnterBack: () => {
-            gsap.delayedCall((totalSections - index) * 0.7, () => {
-              animation.play();
-            });
-          },
-          onLeaveBack: () => {
-            gsap.to(section, {
-              x: 1200,
-              ease: "power2.in",
-              delay: index * 0.7
-            });
+          {
+            x: 1200, // Move to the right
+            duration: 1,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: section,
+              start: "top 80%", // When section reaches 80% of viewport height
+              end: "bottom 60%",
+              toggleActions: "play none none reverse",
+              id: `section-${index}`,
+            },
+            delay: (totalSections - index) * 0.7 // Reverse delay order
           }
-        });
+        );
       });
-
       
     </script>
 
