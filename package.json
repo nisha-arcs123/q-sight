@@ -1,0 +1,17 @@
+{
+  "name": "q-sight",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch main.scss:main.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@motionone/dom": "^10.18.0",
+    "bootstrap": "^5.3.3",
+    "motion": "^12.6.3",
+    "sass": "^1.85.1"
+  }
+}

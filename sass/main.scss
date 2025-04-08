@@ -1,0 +1,416 @@
+// 1. Include functions first
+@import "~bootstrap/scss/functions";
+
+// 2. Include any default variable overrides here
+$primary: #1376F8;
+$secondary: #808790;
+
+
+// Define your custom theme colors
+$custom-theme-colors: (
+  "light-gray": #767676,
+  "navy-blue": #000E33,
+  "blue":#0145FE,
+  "light-blue":#DAECFF,
+  "check-text":#7684AB,
+  "secondary-bg-color":#F8F8F8,
+  "orange":#EC9454,
+  "gray":#F6F6F6,
+  "purple":#F8F7FD,
+  "pink":#F9DDF6,
+  "dark-pink":#FF99F4,
+  "yellow":#FFE9CA,
+  "dark-yellow":#FFCA80,
+  "back-secondary":#F6F6F6,
+//   "light-gray":#D2D2D2,
+  "igray":#D8D8D8
+);
+
+// 3. Include remainder of required Bootstrap stylesheets
+@import "~bootstrap/scss/variables";
+
+// 4. Merge with Bootstrap's theme colors
+$theme-colors: map-merge($theme-colors, $custom-theme-colors);
+
+// 5. Then include the rest of Bootstrap
+@import "~bootstrap/scss/maps";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/root";
+
+// 6. Include optional Bootstrap components
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+// etc.
+
+// 7. Custom utility classes
+$utilities: map-merge(
+  $utilities,
+  (
+    "font-size": (
+      property: font-size,
+      class: fs,
+      responsive: true,
+      values: (
+        14: 14px,
+        16: 16px,
+        18: 18px,
+        20: 20px,
+        22: 22px,
+        24: 24px,
+        28:28px,
+        32: 32px,
+        38:38px,
+        40:40px,
+        48:48px,
+        60:60px,
+        65:65px,
+        70:70px,
+        92:92px,
+      )
+    ),
+    "line-height": (
+      property: line-height,
+      class: lh,
+      responsive: true,
+      values: (
+        38:38px,
+        42:42px,
+        48:48px,
+        52:52px,
+        60:60px,
+        70:70px,
+      )
+    ),
+    "font-weight": (
+      property: font-weight,
+      class: fw,
+      responsive: true,
+      values: (
+        200:200,
+        275:275,
+        400: 400,
+        500: 500,
+        600: 600,
+        700: 700
+      )
+    ),
+    "gap": (
+      property: gap,
+      class: g,
+      responsive: true,
+      values: (
+        4:4px,
+        8:8px,
+        10:10px,
+        16:16px,
+        20:20px,
+        24:24px,
+        30:30px,
+        38:38px,
+        40: 40px,
+        50:50px,
+        67:67px,
+        100:100px,
+        150:150px,
+      )
+    ),
+    "border-radius": (
+      property: border-radius,
+      class: br,
+      responsive: true,
+      values: (
+        6:6px,
+        8:8px,
+        10:10px,
+        12: 12px,
+        20:20px,
+        30:30px,
+        50:50px,
+      )
+    ),
+    "height": (
+      property: height,
+      class: h,
+      responsive: true,
+      values: (
+        40:40px,
+        56:56px,
+        80:80px,
+        88: 88px,
+        48: 48px,
+        38:38px,
+        35:35px,
+        65:65px,
+        200:200px,
+        300:300px,
+        400:400px,
+        440:440px,
+        500:500px,
+        540:540px,
+        612:612px,
+        650:650px,
+        913:913px,
+        1940:1940px,
+        auto:auto,
+        full:100%,
+      )
+    ),
+    "width": (
+      property: width,
+      class: w,
+      responsive: true,
+      values: (
+        40:40px,
+        56:56px,
+        65:65px,
+        80:80px,
+        200:200px,
+        300:300px,
+        350:350px,
+        362:362px,
+        390:390px,
+        400:400px,
+        450:450px,
+        500:500px,
+        550:550px,
+        630:630px,
+        600:600px,
+        650:650px,
+        680:680px,
+        700:700px,
+        738:738px,
+        800:800px,
+        858:858px,
+        auto:auto,
+        half:48%,
+        full:100%,
+      )
+    ),
+    "top": (
+      property: top,
+      class: top,
+      responsive: true,
+      values: (
+        20:20px,
+        30:30px,
+        65:65px,
+        77:77px,
+        90:90px,
+        100:100px,
+        -200:-200px,
+        120:120px,
+        130:130px,
+        200:200px,
+        230:230px,
+        300:300px,
+        350:350px,
+        362:362px,
+        400:400px,
+        450:450px,
+        550:550px,
+        650:650px,
+        700:700px,
+        800:800px,
+        850:850px,
+        950:950px,
+        1500:1500px,
+        1800:1800px,
+        2000:2000px,
+        2300:2300px,
+        2500:2500px,
+        2800:2800px,
+        3000:3000px,
+        3300:3300px,
+        3400:3400px,
+        3700:3700px,
+        3500:3500px,
+        4000:4000px,
+        4200:4200px,
+        4500:4500px,
+        5000:5000px,
+        5300:5300px,
+      )
+    ),
+    
+    "bottom": (
+      property: bottom,
+      class: bottom,
+      responsive: true,
+      values: (
+        0:0px,
+        20:20px,
+        30:30px,
+        65:65px,
+        77:77px,
+        100:100px,
+        -200:-200px,
+        120:120px,
+        130:130px,
+        200:200px,
+        350:350px,
+        362:362px,
+        400:400px,
+        450:450px,
+        550:550px,
+      )
+    ),
+    
+    "left": (
+      property: left,
+      class: left,
+      responsive: true,
+      values: (
+        0:0px,
+        10:10px,
+        20:20px,
+        30:30px,
+        40:40px,
+        65:65px,
+        77:77px,
+        100:100px,
+        -200:-200px,
+        120:120px,
+        130:130px,
+        180:180px,
+        200:200px,
+        350:350px,
+        362:362px,
+        400:400px,
+        450:450px,
+        550:550px,
+        650:650px,
+      )
+    ),
+    "right": (
+      property: right,
+      class: right,
+      responsive: true,
+      values: (
+        0:0,
+        10:10px,
+        20:20px,
+        30:30px,
+        48:48px,
+        65:65px,
+        200:200px,
+        350:350px,
+        362:362px,
+        400:400px,
+        450:450px,
+        550:550px,
+        650:650px,
+        700:700px,
+        -200:-200px,
+        800:800px,
+        850:850px,
+        1500:1500px,
+      )
+    ),
+  
+    "padding": (
+      property: padding,
+      class: p,
+      responsive: true,
+      values: (
+        7:7px,
+        9:9px,
+        10:10px,
+        15 :15px,
+        20:20px,
+        24:24px,
+        30:30px,
+        40:40px,
+        50:50px,
+        60:60px,
+        70:70px,
+        135:135px,
+      )
+    ),
+    "padding-x": (
+      property: padding-left padding-right,
+      class: px,
+      responsive: true,
+      values: (
+        7:7px,
+        15 :15px,
+        20:20px,
+        30:30px,
+        40:40px,
+        70:70px,
+        135:135px,
+      )
+    )
+    ,"padding-y": (
+      property: padding-top padding-bottom,
+      class: py,
+      responsive: true,
+      values: (
+        30:30px,
+        40: 40px,
+        50: 50px,
+        54:54px,
+        60:60px,
+        120:120px,
+        150:150px,
+        213:213px,
+      )
+    )
+    ,"padding-top": (
+      property: padding-top,
+      class: pt,
+      responsive: true,
+      values: (
+        40: 40px,
+        90: 90px
+      )
+    )
+    ,"margin-top": (
+      property: margin-top,
+      class: mt,
+      responsive: true,
+      values: (
+        8:8px,
+        10: 10px,
+        16:16px,
+        20:20px,
+        30: 30px,
+        35:35px,
+        50:50px,
+        77:77px,
+        120:120px,
+      )
+    )
+    ,"margin": (
+      property: margin,
+      class: m,
+      responsive: true,
+      values: (
+        8:8px,
+        10: 10px,
+        16:16px,
+        20:20px,
+        30: 30px,
+        35:35px,
+        50:50px,
+        77:77px,
+        120:120px,
+      )
+    )
+    ,
+    "box-shadow1":(
+      property:box-shadow,
+      class:bx-sh,
+      responsive:true,
+      values:(
+        card-sh:0 70px 70px 0 #00000026,
+        card-sh2:0 10px 40px 0 #1376F866,
+        card-sh3: 0 10px 40px 0 #67015C66,
+        card-sh4: 0 10px 40px 0 #FFCB83,
+      )
+    )
+  )
+);
+
+// 8. Generate utilities AFTER defining custom utilities
+@import "~bootstrap/scss/utilities/api";

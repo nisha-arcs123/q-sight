@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sequential Section Reveal</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .header {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: #2c3e50;
+      color: white;
+    }
+    
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .section {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .section:nth-child(odd) {
+      background-color: #ecf0f1;
+    }
+    
+    .section:nth-child(even) {
+      background-color: #fff;
+    }
+    
+    .content {
+      max-width: 800px;
+      text-align: center;
+    }
+    
+    .content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: #3498db;
+    }
+    
+    .content p {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* Animation class */
+    .reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1>Sequential Section Reveal</h1>
+      <p>Scroll down to see the animation effect</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <div class="content">
+      <h2>Section One</h2>
+      <p>This is the first section that will appear as you scroll down.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <div class="content">
+      <h2>Section Two</h2>
+      <p>This section will appear next in the sequence.</p>
+      <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <div class="content">
+      <h2>Section Three</h2>
+      <p>Each section reveals as you scroll down the page.</p>
+      <p>Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra.</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <div class="content">
+      <h2>Section Four</h2>
+      <p>The animation creates a clean, professional reveal effect.</p>
+      <p>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>
+    </div>
+  </div>
+  
+  <div class="section">
+    <div class="content">
+      <h2>Section Five</h2>
+      <p>The final section in our sequential reveal.</p>
+      <p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est.</p>
+    </div>
+  </div>
+
+  <script>
+    // Wait for the DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get all sections
+      const sections = document.querySelectorAll('.section');
+      
+      // Check if IntersectionObserver is supported
+      if ('IntersectionObserver' in window) {
+        const options = {
+          root: null, // viewport
+          rootMargin: '0px',
+          threshold: 0.25 // 25% of the element must be visible
+        };
+        
+        // Create a sequential delay (in milliseconds)
+        const sequentialDelay = 150;
+        
+        const observer = new IntersectionObserver(function(entries, observer) {
+          entries.forEach(function(entry, index) {
+            if (entry.isIntersecting) {
+              // Add delay based on the section's index
+              setTimeout(function() {
+                entry.target.classList.add('reveal');
+              }, index * sequentialDelay);
+              
+              // Stop observing once animation is applied
+              observer.unobserve(entry.target);
+            }
+          });
+        }, options);
+        
+        // Observe each section
+        sections.forEach(function(section) {
+          observer.observe(section);
+        });
+      } else {
+        // Fallback for browsers that don't support IntersectionObserver
+        function checkScroll() {
+          const triggerBottom = window.innerHeight * 0.8;
+          
+          sections.forEach(function(section) {
+            const sectionTop = section.getBoundingClientRect().top;
+            if (sectionTop < triggerBottom) {
+              section.classList.add('reveal');
+            }
+          });
+        }
+        
+        window.addEventListener('scroll', checkScroll);
+        checkScroll(); // Check on initial load
+      }
+    });
+  </script>
+</body>
+</html>
