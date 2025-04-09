@@ -581,7 +581,7 @@
                 <h6 class="fs-18 fw-600 text-navy-blue m-0 mt-10">
                   BETTER VALUE
                 </h6>
-                <p class="fs-14 fw-400 text-light-gray m-0 mt-10">
+                <p class="fs-14 fw-400 text-light-gray m-0 mt-10 z-3 position-absolute">
                   Because QSight is designed to be apathetic to existing IT
                   systems, it is a lot more affordable to install and maintain
                 </p>
@@ -590,7 +590,7 @@
               <img
                 src="assets/Group 1000004542.png"
                 alt=""
-                class="position-absolute w-full one-img"
+                class="position-absolute w-full one-img right--200 top-0"
               />
             </div>
 
@@ -606,7 +606,7 @@
                 <h6 class="fs-18 fw-600 text-navy-blue m-0 mt-10">
                   EASY INTEGRATION
                 </h6>
-                <p class="fs-14 fw-400 text-light-gray m-0 mt-10">
+                <p class="fs-14 fw-400 text-light-gray m-0 mt-10 z-3 position-absolute">
                   We require minimal changes to existing work processes or IT
                   systems. This lets users see an earlier return on investment
                 </p>
@@ -615,7 +615,7 @@
               <img
                 src="assets/Group 1000004545.png"
                 alt=""
-                class="position-absolute w-full two-img"
+                class="position-absolute w-full two-img right--200 top-0"
               />
             </div>
           </div>
@@ -885,34 +885,37 @@
     <script>
       gsap.registerPlugin(ScrollTrigger);
 
-      // Select all check sections
-      const sections = document.querySelectorAll(".checks");
-      const totalSections = sections.length; // Get total number of sections
-      
-      sections.forEach((section, index) => {
-        gsap.fromTo(
-          section,
+      const card = document.querySelectorAll(".checks");
+
+      card.forEach((card, index) => {
+        // Create the animation timeline
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: card,
+            start: "top bottom-=100", // Start when top of card is 100px from bottom of viewport
+            end: "bottom top+=100",   // End when bottom of card is 100px from top of viewport
+            toggleActions: "play reverse play reverse", // Play when entering, reverse when leaving
+            markers: false, // Set to true for debugging
+          }
+        });
+        
+        // Add the animation to the timeline
+        tl.fromTo(card,
           {
-            x: 0, // Start at the initial position
+            x: 1200,      // Start from right side
+            opacity: 0,   // Start transparent
           },
           {
-            x: 1200, // Move to the right
+            x: 0,         // Move to initial position
+            opacity: 1,   // Fade in
             duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 80%", // When section reaches 80% of viewport height
-              end: "bottom 60%",
-              toggleActions: "play none none reverse",
-              id: `section-${index}`,
-            },
-            delay: (totalSections - index) * 0.7 // Reverse delay order
+            ease: "power3.out",
+            delay: index * 0.1, // Stagger effect
           }
         );
       });
-      
+            
     </script>
-
 
     <!-- all section movement to top -->
     <script>
@@ -973,142 +976,91 @@
     <!-- q-sight steps movement -->
     <script>
       gsap.registerPlugin(ScrollTrigger);
-      
-      // Select all images inside .img-quality in reverse order
-      const images = [...document.querySelectorAll(".quality")].reverse();
-      const quality = [...document.querySelectorAll(".quality2")].reverse();
-      images.forEach((img, index) => {
-        gsap.fromTo(
-          img,
-          {
-            y: 0, // Start 100px below
-          },
-          {
-            y: -1200, // Move to original position
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: img,
-              start: "top 50%", // Animation starts when the image reaches 80% of the viewport
-              toggleActions: "play none none reverse",
-            },
-            delay: index * 0.7, // Stagger effect (last image moves first)
-          }
-        );
-      });
-      
-      quality.forEach((qul, index) => {
-        gsap.fromTo(
-          qul,
-          {
-            x: 0, // Start 100px below
-          },
-          {
-            x: 1200, // Move to original position
-            duration: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: qul,
-              start: "top 50%", // Animation starts when the image reaches 80% of the viewport
-              toggleActions: "play none none reverse",
-            },
-            delay: index * 0.7, // Stagger effect (last image moves first)
-          }
-        );
+
+      const images = gsap.utils.toArray(".img-quality img");
+    
+      gsap.to(images, {
+        yPercent: -100 * (images.length - 1),
+        ease: "none",
+        scrollTrigger: {
+          trigger: ".img-quality",       // Start the animation when .img-quality enters view
+          start: "top top",              // Pin starts when it hits the top
+          end: "+=200%",                 // Duration of scroll animation
+          pin: true,
+          scrub: true,
+          snap: 1 / (images.length - 1),
+          anticipatePin: 1              // Makes the transition into pin smoother
+        }
       });
     </script>
    
-    
     <!-- featrued-card card1 card2 -->
     <script>
       gsap.registerPlugin(ScrollTrigger);
-
+    
       const cards = document.querySelectorAll(".card1-feature");
-
+    
       cards.forEach((card, index) => {
+        const direction = index % 2 === 0 ? -1200 : 1200;
+    
         gsap.fromTo(
           card,
           {
-            y: 0, // Start slightly above
+            x: direction,
+            opacity: 0,
           },
           {
-            y: 50, // Move to original position
-            x: index % 2 === 0 ? "-1200" : "1200", // Odd cards go left, even cards go right
+            x: 0,
+            y:0,
+            opacity: 1,
             duration: 1,
             ease: "power2.out",
             scrollTrigger: {
               trigger: card,
-              start: "top 80%", // When it reaches 80% of viewport
-              end: "top 50%",
-              toggleActions: "play none none reverse",
+              start: "top 85%",
+              end: "bottom 10%",
+              scrub: false,
+              toggleActions: "play reverse play reverse", // animate in and out both directions
             },
-            delay: index * 0.1, // Stagger effect
           }
         );
       });
-
     </script>
-
+    
 
     <!-- our-outer-div section -->
-
     <script>
       gsap.registerPlugin(ScrollTrigger);
-
-      const outerDiv = document.querySelectorAll(".one-outer-div");
-
-      outerDiv.forEach((card, index) => {
-        gsap.fromTo(
+    
+      const outerDivs = document.querySelectorAll(".one-outer-div");
+    
+      outerDivs.forEach((card, index) => {
+        const anim = gsap.fromTo(
           card,
           {
-            y: 0, // Start slightly above
+            x: -1200,
+            opacity: 0
           },
           {
-            y: 90, // Move to original position
-            x: -1200, // Odd cards go left, even cards go right
+            x: 0,
+            y:0,
+            opacity: 1,
             duration: 1,
             ease: "power2.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 80%", // When it reaches 80% of viewport
-              end: "top 50%",
-              toggleActions: "play none none reverse",
-            },
-            delay: index * 0.1, // Stagger effect
           }
         );
+    
+        ScrollTrigger.create({
+          trigger: card,
+          start: "top 80%",
+          end: "bottom 20%",
+          animation: anim,
+          toggleActions: "play reverse play reverse", // Play in, reverse out
+          // scrub: true, // Optional: comment out if you want smoother non-scrubbed transition
+          once: false,
+        });
       });
-
     </script>
-
-
-    <!-- our plateform section -->
-
-    <!-- <script>
-      gsap.registerPlugin(ScrollTrigger);
-
-      gsap.to(".wave-img", {
-        scale: 1.5, // Increase the size
-        ease: "power1.out",
-        scrollTrigger: {
-          trigger: ".our-plateform",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-        },
-      });
-
-      gsap.to(".our-plateform", {
-        y: -1200, // Moves the section upwards
-        ease: "power1.out",
-        scrollTrigger: {
-          trigger: ".our-plateform",
-          start: "top bottom",
-          end: "top top",
-          scrub: true,
-        },
-      });
-
-    </script> -->
+    
   </body>
 </html>
